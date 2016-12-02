@@ -1,0 +1,223 @@
+@CHARSET "ISO-8859-1";
+/*Class based selector */
+.header{
+display:block;
+width:100%;
+Float: left;
+text-align: center;
+color: white; 
+background: OliveDrab; 
+FONT-FAMILY: Georgia, sans-serif; 
+FONT-SIZE: 13pt; 
+FONT-STYLE: normal;
+}
+
+.AccountCreation{
+float:left;
+width: 60%;
+	 
+ }
+ 
+ .login{
+float:right;
+width: 40%;
+	 
+ }
+ 
+.EditorReview {
+color: OliveDrab; 
+FONT-FAMILY: Georgia, sans-serif; 
+FONT-STYLE: normal;	
+FONT-SIZE: 13pt;	
+}
+
+.image{
+	float left;
+	width: 40%; 
+	
+}
+
+.aside{
+
+text-align: center-right;
+width: 100%;
+background: white; 
+
+}
+
+
+/*Descendent based selector */
+.navmenu ul {
+padding:1; margin:1; list-style:none
+
+}
+.navmenu li {
+position:relative; padding-right:100; display:block;
+border:4px; 
+border-style:inset;
+background-color:black
+
+}
+.navmenu li ul {
+display:none;
+position:absolute;
+
+}
+.navmenu li:hover ul{
+display:block;
+height:auto; width:8em
+
+}
+.navmenu li ul li{
+    clear:both;
+border-style:none}
+
+.navmenu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+	padding: 14px 16px;
+}
+
+.leftnavmenu li{
+	float:left;
+	
+}
+
+.rightnavmenu li {
+	float:right;
+}
+
+.navmenu li ul:hover{
+display:block;
+height:auto; width:8em
+
+}
+
+a:hover {
+    color: pink !important;    
+} 
+
+
+/*Class ID +Div based selector */
+ .aside #quote{
+	  
+  FONT-FAMILY: Georgia, sans-serif; 
+  FONT-SIZE: 20pt; 
+  FONT-STYLE: bold;
+  COLOR: Orange; 
+  }
+
+   
+  .aside#searchBox {
+          background: white;
+          border: 1px solid #606060;
+          border-radius: 5px;
+          box-shadow: 0 0 4px #000000 inset;
+          font-size: 13px;
+          margin: 6px;
+          padding: 5px 25px 5px 4px;
+          
+     }
+  .aside#searchButton {
+          position: absolute; 
+          margin: 12px 0 0 -26px;
+     }
+
+h2 {
+Float: left;
+text-align: left;
+color: Orange; 
+background: white; 
+FONT-FAMILY: Georgia, sans-serif; 
+FONT-SIZE: 20pt; 
+FONT-STYLE: normal;	
+width: 100%;
+}
+
+#clear {
+    clear: both;
+}
+
+#img{
+	width:100px;
+	height:100px;
+}
+
+#smallimage{
+	width:40px;
+	height:20px;
+}
+
+#signin {
+ float:right;
+ FONT-SIZE: 13pt;
+ display: block;
+ color: white;
+ padding: 14px 16px;
+ background: YellowGreen; 
+
+}
+
+#footer{
+	clear: both;
+    position: relative;
+    z-index: 10;
+    height: 3em;
+    margin-top: -3em;
+	float: margin-bottom
+	}
+	
+#drop {
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+
+ th {
+   
+    text-align: left;
+	background-color:#ccff33;
+}
+
+.books {
+width: 100%;
+Float: left;
+color: OliveDrab; 
+FONT-FAMILY: Georgia, sans-serif; 
+FONT-STYLE: normal;
+padding:6px 8px;
+display:table-cell;
+text-align:left;
+vertical-align:top;
+    
+}
+
+/*Descendent based selector */
+.books th{
+
+FONT-SIZE: 20px; 	
+}
+
+
+.books td{
+FONT-SIZE: 13pt;	
+}
+
+.books td dl dt{
+	text-align: left;
+	font-weight: bold;
+	padding-left: 30px;
+}
+
+
+
+	
+p {
+	color: Blue;
+	font-size: 15px;
+	}
+ 
+ 

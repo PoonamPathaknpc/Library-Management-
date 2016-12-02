@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<web-app>
+ <display-name>Library</display-name>
+  <welcome-file-list>    
+    <welcome-file>index.jsp</welcome-file>   
+  </welcome-file-list> 
+  
+
+<servlet>
+	<servlet-name>Search_Controller</servlet-name>	
+	<description>Searches for the book</description>
+	<servlet-class>com.dbproject.servlet.Search_Controller</servlet-class>
+</servlet>
+
+<servlet>
+<servlet-name>BorrowerRegister</servlet-name>
+<display-name>BorrowerRegister</display-name>
+<servlet-class>com.dbproject.servlet.BorrowerRegisterControllerServlet</servlet-class>
+</servlet>
+
+<servlet>
+<servlet-name>BookLoan</servlet-name>
+<description>Book Check in</description>
+<servlet-class>com.dbproject.servlet.BookLoanControllerServlet</servlet-class>
+</servlet>
+
+<servlet>
+	<servlet-name>BorrowerDetails</servlet-name>
+	<display-name>BorrowerDetails</display-name>
+	<description> borrow details are displayed</description>
+	<servlet-class>com.dbproject.servlet.BorrowerDetailsController</servlet-class>
+</servlet>
+<servlet>
+	<description>
+	test</description>
+	<display-name>Hellotest</display-name>
+	<servlet-name>Hellotest</servlet-name>
+	<description> testing...</description>
+	<servlet-class>com.dbproject.servlet.Hellotest</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>Search_Controller</servlet-name>
+	<url-pattern>/SearchBooks</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>BorrowerDetails</servlet-name>
+	<url-pattern>/BorrowerDetails</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+<servlet-name>BorrowerRegister</servlet-name>
+<url-pattern>/BorrowerRegister</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+<servlet-name>BookLoan</servlet-name>
+<url-pattern>/BookLoan</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+	<servlet-name>Hellotest</servlet-name>
+	<url-pattern>/Hellotest</url-pattern>
+</servlet-mapping>
+
+</web-app>
