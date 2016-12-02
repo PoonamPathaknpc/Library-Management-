@@ -15,15 +15,17 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.*;
 import org.joda.time.*;
 
-
-
+/*
+* This class instantiates the session to SQL database through hibernate 
+* Functions called from this class perform datbase level transactions through model classes
+*/
 public class DBLibMgmt {
 	
 	public static SessionFactory factory;
 	public static ServiceRegistry serviceRegistry; 
 	
 	public DBLibMgmt() {
-		// TODO Auto-generated constructor stub
+		// Creation a session connection SQL database
 		
 		try{
 			Configuration configuration = new Configuration();
@@ -39,53 +41,7 @@ public class DBLibMgmt {
 		
 	}
 
-	/*public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		String ISBN="0001047973";
-		String fname="Richard";
-		String lname="Bailey";
-		String Author="Sir conan d";
-		String SSN="983-87-0005";
-		String addr="3108 Browning Park , Richardson , TX";
-		String Title="testing book2";
-		String phone="(214) 718-0392";
-		int Qty=10;
-		String Search_String="Lord of the Far Land";
-		String Card_ID="Ri870005";
-		
-		
-		DBLibMgmt dblib = new DBLibMgmt();		
-			
-		// To create a BOOK record with authors
-		//dblib.createBookRecord(ISBN,Title,Qty,Author);
-		//dblib.setAuthors(ISBN,Author);
-		
-		
-		//Requirement 1 - search for books
-		dblib.getSearchDetails(Search_String);	
-		
-		//To create BorrowerRecord requirement 4 (Register button)
-		//dblib.createBorrowerRecord(fname,lname,phone,SSN,addr);
-		dblib.ViewBorrowerDetails(Card_ID);
-		
-		
-		//To create Book loan record when checking out - requirement 2 (check out button )
-		//card_id and ISBN will be fetched GUI -- card_ID will asked but ISBN will fetched when a book is chosen
-		//dblib.createBookLoanRecord(Card_ID,ISBN);
-		
-		//Checking in the book requirement 3 (check in button)
-		//dblib.borrowerBookCheckin(Card_ID,ISBN);
-		
-		//Fines requirement 5 
-		//dblib.getFineDetails(Card_ID);
-		//dblib.listOverDueBooks(Card_ID);
-		//dblib.payFineForBorrower(Card_ID,ISBN);  //Pay Fine button
-		
-		
-	}
-	
-	*/
+	// Creates book record in the database
 	public Integer createBookRecord(String ISBN,String Titl,int Q,String Authors)
 	{
 		Session session = factory.openSession();
@@ -127,50 +83,7 @@ public class DBLibMgmt {
 	      return BookStatus;
 	}
 	
-	/*public Integer setAuthors(String ISBN,String[] Author)
-	{
-		Session session = factory.openSession();
-		Transaction tx = null;
-		Integer BookStatus = null;
-		try {
-			   tx = session.beginTransaction();
-			    Query query = session.createQuery("from BOOK WHERE ISBN = :ISBN");
-			   query.setString("ISBN", ISBN);
-			   query.setMaxResults(1);
-			   BOOK assocbook = (BOOK) query.uniqueResult();
-			   
-			   				
-			   for (int i=0;i<Author.length;i++) 
-			   {
-				   //Generating Unique Author ID 
-				   String Authid="";
-				   Authid=Authid.concat("111");
-				   Authid=Authid.concat(Integer.toString(Author[i].length()));				   
-				   String a = Authid.substring(Authid.length()/2);
-				   Authid=Authid.concat(a);
-				  
-				   AUTHORS A = new AUTHORS(Authid,Author[i]);
-				   A.setbooks(assocbook);
-				   System.out.println(Authid);
-				   assocbook.getAuthors().add(A);				   
-			     
-			   }
-			   
-			   session.save(assocbook);
-			   			   
-			   tx.commit();
-			}
-		
-		catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      }finally {
-	         session.close(); 
-	      }
-	      return BookStatus;
-	}
-	
-	*/
+	// Creates borrower record
 	public String createBorrowerRecord(String Fname,String Lname,String Phone,String SSN,String Address)
 	{
 		Session session = factory.openSession();
@@ -195,7 +108,6 @@ public class DBLibMgmt {
 			   BORROWER borrower=(BORROWER)query1.uniqueResult();
 			   			   
 			   if(borrower!=null)
-			   //System.out.println("Borrower with SSN: " + SSN + "Already exists");
 			   return "false";
 			   else{
 			   BORROWER Bow = new BORROWER(Card_id, SSN, Fname, Lname, Address, Phone, Book_Loans);	
@@ -213,7 +125,7 @@ public class DBLibMgmt {
 	      return Card_id;
 	}
 	
-	
+	// View details of the borrower 
 	public BORROWER ViewBorrowerDetails(String CardorSSN)
 	{
 		Session session = factory.openSession();
@@ -250,24 +162,24 @@ public class DBLibMgmt {
 				   borrowerFinal = borrower; 
 				   
 			   }
-		 //tx.commit();
+		 tx.commit();
 		 
 		}
 	
-	catch (HibernateException e) {
-         if (tx!=null) tx.rollback();
-         e.printStackTrace(); 
-         }finally {
-         session.close(); 
+	      catch (HibernateException e) {
+                 if (tx!=null) tx.rollback();
+                 e.printStackTrace(); 
+                  }finally {
+                   session.close(); 
         
-        }
+             }
       
 		 return borrowerFinal;
 		
 	}
 	
 	
-	
+	// Checkout a book
 	public int createBookLoanRecord(String Card_id,String ISBN)
 	{
 		Session session = factory.openSession();
@@ -312,8 +224,7 @@ public class DBLibMgmt {
 					}
 				}
 								
-				if ((num_activeBL>=3)||(fineflag>0))	
-				//System.out.println("The borrower isnt allowed to loan the book as he/she has either 3 or more Active book loans already or hasnt paid the fine for one or more checked in books");	
+				if ((num_activeBL>=3)||(fineflag>0))					
 				return 2;
 				else
 				{   Date DO = new Date();
@@ -334,7 +245,7 @@ public class DBLibMgmt {
 						System.out.println("there are no associated book loans");
 						
 					if(overdueflag>0)
-				      //System.out.println("The borrower isnt allowed to loan the book as he/she currenlty an overdue book ");
+				      
 						return 3;
 				      else
 				      {
@@ -348,7 +259,7 @@ public class DBLibMgmt {
 					   {
 						   System.out.println("the book is found" + assocbook.ISBN);
 					   if (assocbook.Quantity==0)
-				       //System.out.println("The book is not available to be loaned anymore");
+				       
 				       return 4;
 					   else{
 					       			   
@@ -360,7 +271,7 @@ public class DBLibMgmt {
 					      
 					       BOOK_LOANS BL = new BOOK_LOANS( DD, DO,borrower,assocbook);
 					       borrower.getBookLoans().add(BL);
-					       //System.out.println("the book loan book is " + borrower.getBookLoans().get(1).getBOOK().Authors);
+					       
 					       //Reducing the quantity of book available
 					       assocbook.Quantity-=1;
 					       System.out.println("available Book qty" + assocbook.Quantity);	
@@ -387,7 +298,7 @@ public class DBLibMgmt {
 	      return 0;
 	}
 	
-	
+	// Checkin the borrowed book 
 	public boolean borrowerBookCheckin(String Card_id,String ISBN)
 	{
 		Session session = factory.openSession();
@@ -406,34 +317,32 @@ public class DBLibMgmt {
 			    query1.setMaxResults(1);
 			    
 							
-			 		//System.out.println("the isbn is " + query1);		
-				    //to count number of active book loans the borrower has....	
-					//for(int i=0; i< qlist1 .size(); i++)
-				    //{				   
-						BOOK_LOANS B=(BOOK_LOANS)query1.uniqueResult();
-					     B.setDate_in(DI);
-					    if(B.getDue_Date().compareTo(DI)==-1)
-					     {
-						 //Setting Fine for borrower 
+			 		
+			     //to count number of active book loans the borrower has....	
+								   
+			     BOOK_LOANS B=(BOOK_LOANS)query1.uniqueResult();
+		             B.setDate_in(DI);
+			          if(B.getDue_Date().compareTo(DI)==-1)
+					  {
+					      //Setting Fine for borrower 
 					      FINES FBL=this.createFine(B);
 					      B.setFine(FBL);
 					      FBL.setBOOK_LOANS(B);
 					      
-					    
 					       //adding quantity back to Book
 					       int Qty=B.getBOOK().Quantity+1;
 					       BOOK assocbook=B.getBOOK();
 					       assocbook.setQuantity(Qty);
 					    
-					    //Saving changes in DB
-				           session.save(B);
-				           session.save(FBL);
-				           session.save(assocbook);
+					       //Saving changes in DB
+				               session.save(B);
+				               session.save(FBL);
+				               session.save(assocbook);
 				       
 					     }		   
 	   				     
 				tx.commit();		
-	  }	
+	      }	
 		  catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
 	         e.printStackTrace(); 
@@ -443,6 +352,8 @@ public class DBLibMgmt {
 	      return true;
 	}
 	
+	
+	// Search for a book based on author/book name / ISBN (10 digit ) number
 	public List<Book_AuthorBean> getSearchDetails(String S)
 	{
 		List<Book_AuthorBean> BookAList = new ArrayList<Book_AuthorBean>();
@@ -502,8 +413,8 @@ public class DBLibMgmt {
 			     Query queryT = session.createQuery("from BOOK WHERE Title like :Title");
 			     List<?> qlistT = queryT.setString("Title", "%" + subsearch[i]+"%").list();
 			     if(qlist.isEmpty())
-					   System.out.println("No results for Tite");    
-				   //List<?> qlistT = query.list();
+			      System.out.println("No results for Tite");    
+				   
 				    for(int j=0; j< qlistT .size(); j++)
 				    {
 						BOOK B1=(BOOK)qlistT.get(j);						
@@ -539,7 +450,7 @@ public class DBLibMgmt {
 			     Query queryT = session.createQuery("from AUTHORS WHERE  Author_Name like :AuthName");
 			     List<?> qlistT = queryT.setString("AuthName", subsearch[k] +"%").list();
 				   
-				   //List<?> qlistT = query.list();
+				   
 				    for(int j=0; j< qlistT .size(); j++)
 				    {
 						AUTHORS A1=(AUTHORS)qlistT.get(j);
@@ -571,7 +482,7 @@ public class DBLibMgmt {
 		
 	}
 	
-	
+	// Get current pending fines of a user
 	public List<FINES> getFineDetails(String Card_id)
 	{
 		Session session = factory.openSession();
@@ -614,13 +525,12 @@ public class DBLibMgmt {
 	      return Fines;
 	}
 	
-	
+	// List books whose checkin is overdue
 	public List<OverdueBean> listOverDueBooks(String Card_id)
 	{
 		Session session = factory.openSession();
 		Transaction tx = null;
 		List<BOOK> OverDueBooks = new ArrayList<BOOK>();
-		//OverdueBean ODBean= new OverdueBean();
 		List<OverdueBean> ODBeans = new ArrayList<OverdueBean>();
 		try {
 			    tx = session.beginTransaction();
@@ -641,14 +551,10 @@ public class DBLibMgmt {
 						  Date DO = new Date();						
 					      if (B.getDue_Date().compareTo(DO)==-1)
 					      {   
-					      //System.out.println("the borrower is "  + B.getBORROWER().getCard_ID()); 
-					      List results = session.createSQLQuery("select ISBN from BOOK_LOANS WHERE Loan_ID =" + B.getLoan_ID()).list();	
-					      //List results1 = session.createSQLQuery("select ISBN ,from BOOK WHERE ISBN =" + results.get(0).toString()).list();
+					      
+					      List results = session.createSQLQuery("select ISBN from BOOK_LOANS WHERE Loan_ID =" + B.getLoan_ID()).list();
 					      List results2 = session.createSQLQuery("select Title from BOOK WHERE ISBN =" + results.get(0).toString()).list();
 					      List results3 = session.createSQLQuery("select  Quantity from BOOK WHERE ISBN =" + results.get(0).toString()).list();
-					     				      				    	   
-					      
-					      //System.out.println("the book is "  + results.get(0).toString() + " " + results2.get(0).toString() +  " " + results3.get(0).toString() );					      
 					      OverdueBean ODBean= new OverdueBean();
 					      BOOK Book = new BOOK();
 					      Book.setISBN(results.get(0).toString());
@@ -660,14 +566,13 @@ public class DBLibMgmt {
 					       
 					     
 					      }
-						}
-				   }
-				for(int i=0;i<ODBeans.size();i++){
-
+				          }
+				        }
+			
+	                   for(int i=0;i<ODBeans.size();i++)
+			       System.out.println(ODBeans.get(i).getB());
 					
-					System.out.println(ODBeans.get(i).getB());
-					}
-				  tx.commit();			
+			      tx.commit();			
 		        
 		      }	
 		  catch (HibernateException e) {
@@ -679,7 +584,7 @@ public class DBLibMgmt {
 	      return ODBeans;
 	}
 	
-	
+	// Pay the fine for specified book
 	public boolean payFineForBorrower(String Card_id,String ISBN)
 	{
 		Session session = factory.openSession();
@@ -713,9 +618,7 @@ public class DBLibMgmt {
 				
 					    	  Fine.setPAID('y');
 					    	  System.out.println(" the card id is " + Fine.getBOOK_LOANS().getBORROWER().getCard_ID());
-					    	  //bookloans.get(i).setFine(Fine);
-					    	  //Fine.setBOOK_LOANS(bookloans.get(i));
-					
+					    	  				
 				 }
 				
 				session.save(Fine);
@@ -732,6 +635,7 @@ public class DBLibMgmt {
 		
 	}
 	
+	// Register a fine for Over due books
 	public FINES createFine(BOOK_LOANS BL)
 	{
 		long diff = BL.getDate_in().getTime() - BL.getDue_Date().getTime();
@@ -751,6 +655,7 @@ public class DBLibMgmt {
 		
 	}
 	
+	// Update the fine table on payment
 	public void UpdateFines()
 	{
 		Session session = factory.openSession();
