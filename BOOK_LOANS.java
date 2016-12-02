@@ -1,4 +1,4 @@
-package libDBMgmtproject.Model;
+package com.dbproject.model;
 
 import java.util.*;
 
@@ -7,6 +7,7 @@ public class BOOK_LOANS {
 	
 	private int Loan_ID;
 	private BOOK book;
+	private String ISBN;
 	private BORROWER borrower;
 	private Date Due_Date;
 	private Date Date_in;

@@ -1,6 +1,4 @@
-package libDBMgmtproject.Model;
-
-
+package com.dbproject.model;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,10 +12,10 @@ public class BOOK {
 	String Title;
 	int Quantity;
 	private List<BOOK_LOANS> Book_Loans;
-	private Set<AUTHORS> Authors;
+	AUTHORS Authors;
 
 	public BOOK(){}
-	public BOOK(String ISBNID,String T, int Qty,List<BOOK_LOANS> BL, Set<AUTHORS> BA) {
+	public BOOK(String ISBNID,String T, int Qty,List<BOOK_LOANS> BL, AUTHORS BA) {
 		
 		this.ISBN=ISBNID;
 		this.Title=T;
@@ -54,11 +52,11 @@ public class BOOK {
 		      this.Book_Loans = BL;
 		   }
 
-	   public Set<AUTHORS> getAuthors() {
+	   public AUTHORS getAuthors() {
 		      return this.Authors;
 		   }
 	   
-	   public void setAuthors(Set<AUTHORS> BL) {
+	   public void setAuthors(AUTHORS BL) {
 		      this.Authors=BL;
 		      
 		   }

@@ -1,13 +1,14 @@
-package libDBMgmtproject.Model;
+package com.dbproject.model;
 
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class AUTHORS {
 
 	String Auth_ID;
 	String Author_Name;
-	BOOK books;
+	Set<BOOK> books;
 	
 	public AUTHORS(){}
 	
@@ -15,7 +16,7 @@ public class AUTHORS {
 		// TODO Auto-generated constructor stub
 		this.Auth_ID=AID;
 		this.Author_Name=AN;
-		
+	
 	}
 	
 	public String getAuth_ID() {
@@ -31,11 +32,11 @@ public class AUTHORS {
 	      this.Author_Name = AN;
 	   }
 	   
-	   public BOOK getbooks() {
+	   public Set<BOOK> getbooks() {
 		      return this.books;
 		   }
-		   public void setbooks( BOOK Book ) {
-		      this.books=Book;
+		   public void setbooks( Set<BOOK> Books ) {
+		      this.books=Books;
 		   }
 
 }

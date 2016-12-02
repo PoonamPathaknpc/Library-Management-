@@ -1,4 +1,4 @@
-package libDBMgmtproject.Model;
+package com.dbproject.model;
 
 import java.util.ArrayList;
 import java.util.List;

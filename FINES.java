@@ -1,9 +1,10 @@
-package libDBMgmtproject.Model;
+package com.dbproject.model;
+
 public class FINES {
 	
 	int Loan_id;
 	private BOOK_LOANS Bookloan;
-	private double Fine_Amt;
+	private float Fine_Amt;
 	private char PAID;
 
 	public FINES() {
@@ -18,10 +19,10 @@ public class FINES {
 	      this.Bookloan=bl;
 	   }
   
-    public double getFine_Amt() {
+    public float getFine_Amt() {
 	      return this.Fine_Amt;
 	   }
-    public void setFine_Amt( double FA ) {
+    public void setFine_Amt( float FA ) {
 	      this.Fine_Amt= FA;
 	   }
 	public char getPAID() {
