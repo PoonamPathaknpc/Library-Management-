@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="libDBMgmtproject.Model">
+   <class name="BOOK_AUTHORS" table="BOOK_AUTHORS">
+       <meta attribute="class-description">
+         This class contains the ID association of Author and book in the library. 
+       </meta>
+       
+       <id name="ISBN" type="string" column="ISBN">
+				<generator class="foreign">
+				<param name="property">BOOK</param>
+			    </generator>
+	   </id>
+	  <one-to-one name="book" class="BOOK" cascade="all"></one-to-one>  		  
+	  <one-to-one name="Author" class="AUTHORS"></one-to-one> 
+	</class>		
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="libDBMgmtproject.Model">
+   <class name="BOOK_LOANS" table="BOOK_LOANS">
+      <meta attribute="class-description">
+         This class contains the details book loans taken in the library. 
+      </meta>
+      <id name="Loan_ID" type="int" column="Loan_ID">
+      <generator class="native" />
+      </id>
+      <one-to-one name="fine" class="FINES"
+			cascade="save-update"></one-to-one> 
+		
+      
+      <property name="Due_Date" column="Due_Date" type="date"/>
+      <property name="Date_in" column="Date_in" type="date"/>
+      <property name="Date_out" column="Date_out" type="date"/>
+      
+      <many-to-one name="BORROWER" class="BORROWER" cascade="save-update">
+             <column name="Card_ID" not-null="true"/>             
+      </many-to-one>  
+      
+      <many-to-one name="BOOK" class="BOOK" cascade="save-update">
+             <column name="ISBN"/>             
+      </many-to-one>      
+    </class>
+</hibernate-mapping>

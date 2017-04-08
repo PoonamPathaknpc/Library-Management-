@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="libDBMgmtproject.Model">
+   <class name="AUTHORS" table="AUTHORS">
+      <meta attribute="class-description">
+         This class contains the details  of every Author whose books are in the library. 
+      </meta>
+      <id name="Auth_ID" type="string" column="Author_ID" length="15"></id>
+      <property name="Author_Name" column="Auth_Name" type="string"/> 
+       
+        <join table="BOOK_AUTHORS" inverse="true" >
+            <key column="Author_ID"/>
+            <many-to-one name="books" column="ISBN" not-null="true" />
+        </join>
+       
+          
+   </class>    
+</hibernate-mapping>
